@@ -1,23 +1,15 @@
 //class for the body
 import style from './styles.js';
-class Customdiv extends HTMLElement{
+
+//progress div
+class Progressdiv extends HTMLElement{
     constructor(){
         super();
     }
 
     connectedCallback(){
         const shadow = this.attachShadow({ mode: "open" });
-        
-        const contain = document.createElement('div');
-        contain.setAttribute('class', 'container');
-        
-        //text in the div
-        const fp = document.createElement('p');
-        fp.innerHTML= "Back to lists";
-        const sp = document.createElement('p');
-        sp.innerHTML = "TOTAL";
 
-        //for the progress bar
         const pb = document.createElement('div');
         pb.setAttribute('class', 'progress');
         const sub = document.createElement('div');
@@ -26,26 +18,90 @@ class Customdiv extends HTMLElement{
         tp.setAttribute('class', 'text1');
         tp.innerHTML = "33% complete";
 
-        //the list
+        //appending
+        shadow.appendChild(pb);
+        pb.appendChild(sub);
+        shadow.appendChild(tp);
+        shadow.adoptedStyleSheets = [style];
+    }
+}
+
+//the custom ul
+class Customul extends HTMLElement{
+    constructor(){
+        super();
+    }
+
+    connectedCallback(){
+        const shadow = this.attachShadow({ mode: "open" });
+
         const momlist = document.createElement('ul');
         momlist.setAttribute('class', 'list');
         const task =['Meditation', 'Pick Up Anna', 'set up meeting with Jay', 'finish Daily UI', 
                       'Second edit on article','Email Chris'];
         for (let i = 1; i <= 6; i++) {
             const li = document.createElement('li');
+            li.setAttribute('class', 'completed');
             li.innerHTML = task[i];
             momlist.appendChild(li);
         }
-        //the appending
-        shadow.appendChild(contain);
-        contain.appendChild(fp);
-        contain.appendChild(sp);
-        contain.appendChild(pb);
-        pb.appendChild(sub);
-        contain.appendChild(tp);
-        contain.appendChild(momlist);
+
+        //appending
+        shadow.appendChild(momlist);
         shadow.adoptedStyleSheets = [style];
     }
 }
 
-customElements.define('custom-div', Customdiv);
+//coustom horizontal line
+class Customline extends HTMLElement{
+    constructor(){
+        super();
+    }
+    connectedCallback(){
+        const shadow = this.attachShadow({ mode: "open" });
+
+        const line = document.createElement('div');
+        line.setAttribute('class', 'line');
+        
+        shadow.appendChild(line);
+        shadow.adoptedStyleSheets = [style];
+    }
+}
+
+//display div in four grid
+class Customdisplay extends HTMLElement{
+    constructor(){
+        super();
+    }
+    connectedCallback(){
+        const shadow = this.attachShadow({ mode: "open" });
+
+        const dp = document.createElement('div');
+        dp.setAttribute('class', 'grid1');
+        const done = document.createElement('div');
+        done.setAttribute('class', 'div1');
+        done.innerHTML = "<p>Daily</p>";
+        const dtwo = document.createElement('div');
+        dtwo.setAttribute('class', 'div2');
+        dtwo.innerHTML = 'Weekly';
+        const dthree = document.createElement('div');
+        dthree.setAttribute('class', 'div3');
+        dthree.innerHTML =  'Monthly';
+        const dfour = document.createElement('div');
+        dfour.setAttribute('class', 'div4');
+        dfour.innerHTML = 'Occasional';
+        
+        shadow.appendChild(dp);
+        dp.appendChild(done);
+        dp.appendChild(dtwo);
+        dp.appendChild(dthree);
+        dp.appendChild(dfour);
+        shadow.adoptedStyleSheets = [style];
+    }
+}
+
+
+customElements.define('progress-div', Progressdiv);
+customElements.define('custom-ul', Customul);
+customElements.define('custom-line', Customline);
+customElements.define('custom-display', Customdisplay);
