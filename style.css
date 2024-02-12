@@ -1,0 +1,13 @@
+body {
+    background-color: rgb(184, 184, 224);
+}
+
+.container {
+    background: white;
+    margin: 90px 180px;
+    width: 400px;
+    height: 400px;
+    background-color: rgb(145, 145, 212);
+    text-align: center;
+    list-style-type: circle;
+}
